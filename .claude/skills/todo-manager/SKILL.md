@@ -61,7 +61,7 @@ Respond: "Completed: **TASK_TEXT**"
 
 Run via Bash:
 ```bash
-python ".claire/skills/todo-manager/scripts/todos.py" delete TASK_NUMBER
+python ".claude/skills/todo-manager/scripts/todos.py" delete TASK_NUMBER
 ```
 
 Respond: "Removed from your list: **TASK_TEXT**"
