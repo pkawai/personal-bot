@@ -98,6 +98,50 @@ XGBoost key hyperparameters include learning_rate, max_depth, n_estimators...
 
 ---
 
+### 5. Tech Today *(stretch)*
+Get a structured global tech news digest — latest stories, AI developments, trending categories, and most-talked subjects right now.
+
+| Trigger | Example |
+|---------|---------|
+| Keyword | `techtoday` |
+| Natural phrase | "what's happening in tech?" |
+| AI-only variant | `techtoday ai` |
+
+**Example response:**
+```
+📡 Tech Today — Tuesday, April 15, 2026
+
+🔥 Top Story
+OpenAI announces GPT-5 with real-time voice and vision capabilities,
+available to all ChatGPT users starting today.
+
+─────────────────────
+
+🤖 AI & Machine Learning
+• GPT-5 launches globally — major leap in reasoning and multimodal tasks
+• Google DeepMind releases AlphaFold 3 update with drug discovery focus
+• Mistral open-sources new 70B model outperforming Llama 3
+
+📱 Products & Launches
+• Apple releases iOS 19.4 with satellite messaging improvements
+• Notion launches AI database with auto-tagging and summarization
+
+💰 Business & Funding
+• Perplexity AI raises $250M at $3B valuation
+• Intel announces 2,000 layoffs amid fab restructuring
+
+─────────────────────
+
+💬 Most Talked About
+• AI agents replacing SaaS workflows
+• Open-source vs closed model debate heating up
+• EU AI Act enforcement deadline approaching
+
+🔗 Go deeper: TechCrunch · The Verge · Ars Technica
+```
+
+---
+
 ### 4. Daily Briefing *(stretch)*
 Start your day with a combined morning brief — date, forex snapshot, and a motivational quote.
 
@@ -143,23 +187,42 @@ git clone https://github.com/pkawai/personal-bot.git
 cd personal-bot
 ```
 
-### Step 3: Configure Claude Channels
-```bash
-claude channels add telegram --token YOUR_BOT_TOKEN_HERE
+### Step 3: Install the Telegram plugin
+Open a Claude Code session and run:
+```
+/plugin install telegram@claude-plugins-official
+/reload-plugins
 ```
 
-### Step 4: Start Claude Code
-```bash
-claude
+### Step 4: Configure the bot token
 ```
-Claude Code is now listening. Send a message to your Telegram bot to test it.
+/telegram:configure YOUR_BOT_TOKEN_HERE
+```
 
-### Step 5: Test the skills
+### Step 5: Start Claude with the Telegram channel
+```bash
+claude --channels plugin:telegram@claude-plugins-official
+```
+
+Or use the alias (add to `~/.zshrc`):
+```bash
+alias mybot="cd /path/to/personal-bot && claude --channels plugin:telegram@claude-plugins-official"
+```
+
+### Step 6: Pair your Telegram account
+1. DM your bot on Telegram — it replies with a 6-character code
+2. In your Claude Code session:
+```
+/telegram:access pair <code>
+```
+
+### Step 7: Test the skills
 Send these messages to your bot:
-- `what's EUR/USD?` → should return exchange rates
-- `add task test the bot` → should confirm task added
-- `search for Claude Code channels` → should return a web summary
-- `good morning` → should return daily briefing
+- `what's EUR/USD?` → live exchange rates
+- `add task test the bot` → task added to your list
+- `search for Claude Code channels` → web summary
+- `good morning` → daily briefing
+- `techtoday` → global tech news digest
 
 ---
 
@@ -177,8 +240,10 @@ personal-bot/
 │       │       └── todos.py      # Python helper for todo CRUD
 │       ├── web-search/
 │       │   └── SKILL.md          # Web research skill
-│       └── daily-briefing/
-│           └── SKILL.md          # Morning briefing skill (stretch)
+│       ├── daily-briefing/
+│       │   └── SKILL.md          # Morning briefing skill (stretch)
+│       └── tech-today/
+│           └── SKILL.md          # Global tech news digest (stretch)
 ├── data/
 │   └── todos.json                # Persistent task storage
 ├── .gitignore
@@ -202,3 +267,4 @@ Each skill was developed on its own branch with a corresponding GitHub issue:
 - `feature/todo-manager-skill` → Issue #2
 - `feature/web-search-skill` → Issue #3
 - `feature/daily-briefing-skill` → Issue #4
+- `feature/tech-today-skill` → Issue #9
